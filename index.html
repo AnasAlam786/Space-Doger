@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Space Dodger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;600;700&display=swap">
+</head>
+<body>
+  <main class="app">
+    <div class="top">
+      <div>
+        <p class="eyebrow">Mini project</p>
+        <h1>Space <span>Dodger</span></h1>
+      </div>
+      <div class="tools">
+        <button class="btn-sm" id="pauseBtn" type="button" disabled>Pause</button>
+        <button class="btn-sm" id="soundBtn" type="button" aria-pressed="true">Sound on</button>
+      </div>
+    </div>
+
+    <div class="hud">
+      <div class="stat"><span class="label">Score</span><span class="value" id="score">0</span></div>
+      <div class="stat"><span class="label">Level</span><span class="value" id="level">1</span></div>
+      <div class="stat"><span class="label">Best</span><span class="value" id="best">0</span></div>
+      <div class="stat"><span class="label">Lives</span>
+        <div class="lives" id="lives" aria-label="Lives left">
+          <span class="life"></span><span class="life"></span><span class="life"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <!-- Phaser creates its canvas inside this div -->
+      <div id="gameHolder"></div>
+
+      <div class="overlay" id="menu">
+        <h2>Space <span>Dodger</span></h2>
+        <p>Fly through the asteroid field. Collect stars and survive as long as you can.</p>
+        <ul class="key">
+          <li><span class="dot star"></span>Star: +50 points</li>
+          <li><span class="dot shield"></span>Shield: blocks one hit</li>
+          <li><span class="dot rock"></span>Asteroid: costs a life</li>
+        </ul>
+        <button class="cta" id="play" type="button">Play</button>
+      </div>
+
+      <div class="overlay" id="pause" hidden>
+        <h2>Paused</h2>
+        <button class="cta" id="resume" type="button">Resume</button>
+      </div>
+
+      <div class="overlay" id="over" hidden>
+        <h2>Game <span>over</span></h2>
+        <div class="big" id="finalScore">0</div>
+        <p id="finalBest">Best score: 0</p>
+        <span class="badge" id="newBest" hidden>New best</span>
+        <button class="cta" id="again" type="button">Play again</button>
+      </div>
+    </div>
+
+    <p class="hint">Move with the arrow keys or WASD. On a touch screen, drag on the play field. Press P to pause.</p>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
