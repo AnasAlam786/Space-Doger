@@ -4,7 +4,8 @@
 
 import Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT, COLORS, SETTINGS, Difficulty, randomBetween } from './config.js';
-import { Sound, BestScore } from './audio.js';
+import { Sound } from './audio.js';
+import { Leaderboard } from './leaderboard.js';
 import { UI } from './ui.js';
 import { drawPowerUp } from './drawing.js';
 import { Ship } from './ship.js';
@@ -41,8 +42,7 @@ export class GameScene extends Phaser.Scene {
     this.stars = [];
     this.powerUps = [];
 
-    // Best score
-    this.best = BestScore.load();
+    this.best = Leaderboard.getSavedHighscore();
     UI.setBest(this.best);
 
     // Background: a graphics object that we redraw each frame
@@ -73,7 +73,9 @@ export class GameScene extends Phaser.Scene {
     this.shieldText.setVisible(false);
 
     // Keyboard keys (arrows and WASD)
-    this.keys = this.input.keyboard.addKeys('LEFT,RIGHT,UP,DOWN,A,D,W,S');
+    // Don't let Phaser prevent browser defaults for these keys: the username
+    // input uses several of the same letters.
+    this.keys = this.input.keyboard.addKeys('LEFT,RIGHT,UP,DOWN,A,D,W,S', false);
 
     // Bass beat: every 380 ms, but only while playing
     this.time.addEvent({
@@ -139,13 +141,20 @@ export class GameScene extends Phaser.Scene {
 
     const finalScore = Math.floor(this.score);
     const isNewBest = finalScore > this.best;
-    if (isNewBest) {
-      this.best = finalScore;
-      BestScore.save(this.best);
-      UI.setBest(this.best);
-    }
 
     UI.showGameOver(finalScore, this.best, isNewBest);
+    Leaderboard.submitHighscore(Leaderboard.getSavedUsername(), finalScore)
+      .then((highscore) => {
+        this.best = highscore;
+        UI.setBest(highscore);
+        UI.finalBestBox.textContent = 'Best score: ' + highscore;
+        UI.setScoreMessage('Score saved to the leaderboard.', false);
+        return Leaderboard.getTopFive();
+      })
+      .then((players) => UI.setLeaderboard(players))
+      .catch((error) => {
+        UI.setScoreMessage(`Could not save your score: ${error.message}`, true);
+      });
     Sound.playGameOver();
   }
 

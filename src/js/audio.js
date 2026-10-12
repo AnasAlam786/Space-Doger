@@ -1,6 +1,6 @@
 /* audio.js
-   Browser-generated sound effects and best-score storage. Keeping these here
-   means the game scene can request a sound without knowing how it is made. */
+   Browser-generated sound effects. The game scene can request a sound
+   without knowing how it is made. */
 
 export const Sound = {
   context: null,
@@ -76,21 +76,5 @@ export const Sound = {
   toggleMute: function () {
     this.muted = !this.muted;
     return this.muted;
-  }
-};
-
-// Best score is kept in the browser (localStorage).
-export const BestScore = {
-  load: function () {
-    try {
-      return parseInt(localStorage.getItem('spaceDodgerBest'), 10) || 0;
-    } catch (e) {
-      return 0;
-    }
-  },
-  save: function (value) {
-    try {
-      localStorage.setItem('spaceDodgerBest', String(value));
-    } catch (e) {}
   }
 };

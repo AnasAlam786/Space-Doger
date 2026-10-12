@@ -72,6 +72,22 @@ canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .overlay h2 { margin: 0; font-family: var(--display); font-size: clamp(38px, 11vw, 60px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.05; }
 .overlay h2 span { color: var(--amber); }
 .overlay p { margin: 0; max-width: 32ch; font-size: 16px; line-height: 1.5; color: var(--muted); }
+#menu { justify-content: flex-start; gap: 12px; overflow-y: auto; }
+.username-form { width: min(100%, 320px); display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.username-form label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.username-form input { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); font: 600 16px var(--body); }
+.username-form input:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.form-message { min-height: 1.2em; color: var(--muted); font-size: 13px !important; }
+.form-message.error { color: #ff9e9e; }
+.leaderboard { width: min(100%, 340px); padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: rgba(20, 24, 43, 0.9); }
+.leaderboard h3 { margin: 0; color: var(--amber); font: 600 20px var(--display); text-transform: uppercase; }
+.player-label { margin: 4px 0 8px !important; font-size: 12px !important; }
+.player-label strong { color: var(--text); }
+.leaderboard-list { display: flex; flex-direction: column; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.leaderboard-list li { display: grid; grid-template-columns: 30px 1fr auto; gap: 8px; text-align: left; font-size: 14px; }
+.leaderboard-list li span:first-child { color: var(--teal); }
+.leaderboard-list li span:last-child { font-weight: 700; font-variant-numeric: tabular-nums; }
+.leaderboard-callout { margin: 8px 0 0 !important; color: var(--amber) !important; font-size: 14px !important; font-weight: 700; }
 
 .key { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; text-align: left; font-size: 15px; }
 .key li { display: flex; align-items: center; gap: 10px; }

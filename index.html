@@ -35,7 +35,19 @@
       <!-- Phaser creates its canvas inside this div -->
       <div id="gameHolder"></div>
 
-      <div class="overlay" id="menu">
+      <div class="overlay" id="usernamePanel">
+        <h2>Choose a <span>username</span></h2>
+        <p>Create a unique username to save your best score and join the leaderboard.</p>
+        <form id="usernameForm" class="username-form">
+          <label for="usernameInput">Username</label>
+          <input id="usernameInput" name="username" type="text" minlength="3" maxlength="16"
+            pattern="[A-Za-z0-9_]{3,16}" autocomplete="nickname" required>
+          <p id="usernameMessage" class="form-message" role="status" aria-live="polite"></p>
+          <button class="cta" type="submit">Join leaderboard</button>
+        </form>
+      </div>
+
+      <div class="overlay" id="menu" hidden>
         <h2>Space <span>Dodger</span></h2>
         <p>Fly through the asteroid field. Collect stars and survive as long as you can.</p>
         <ul class="key">
@@ -43,6 +55,13 @@
           <li><span class="dot shield"></span>Shield: blocks one hit</li>
           <li><span class="dot rock"></span>Asteroid: costs a life</li>
         </ul>
+        <section class="leaderboard" aria-labelledby="leaderboardTitle">
+          <h3 id="leaderboardTitle">Top 5 leaderboard</h3>
+          <p class="player-label">Playing as <strong id="playerName"></strong></p>
+          <ol id="leaderboardList" class="leaderboard-list"></ol>
+          <p id="leaderboardMessage" class="form-message" role="status" aria-live="polite"></p>
+          <p class="leaderboard-callout">Play the game the break the record.</p>
+        </section>
         <button class="cta" id="play" type="button">Play</button>
       </div>
 
@@ -56,6 +75,7 @@
         <div class="big" id="finalScore">0</div>
         <p id="finalBest">Best score: 0</p>
         <span class="badge" id="newBest" hidden>New best</span>
+        <p id="scoreMessage" class="form-message" role="status" aria-live="polite"></p>
         <button class="cta" id="again" type="button">Play again</button>
       </div>
     </div>

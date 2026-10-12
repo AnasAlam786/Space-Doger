@@ -13,6 +13,26 @@ and where to look when you want to change something.
 
 To check the production build, run `npm run build`.
 
+## Configure the Supabase leaderboard
+
+1. Create a Supabase project and open its SQL Editor.
+2. Run the SQL in `supabase/schema.sql` to create the leaderboard table and
+   its public access policies.
+3. Copy the project URL and anon/public key from the Supabase project settings
+   into `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env`.
+4. Restart `npm run dev` after updating `.env`.
+
+The app asks new players to choose a unique 3-16 character username (letters,
+numbers, and underscores). It shows the top five active scores, saves a new
+personal best to Supabase after each game, and stores the username and confirmed
+high score in browser cookies.
+
+The browser uses the Supabase anon key, which is public by design; never put a
+service-role key in a `VITE_` variable. Since this version has no account
+authentication, public leaderboard writes cannot prove who owns a username and
+are not cheat-proof. Add Supabase Auth and bind player rows to authenticated
+users before relying on scores for prizes or other trusted outcomes.
+
 ## The big picture
 
 The browser first opens `index.html`. That page contains the buttons, score
@@ -59,7 +79,9 @@ The HTML interface and Phaser canvas work together:
 | `src/js/spawn.js` | Creates asteroids, stars, and shield pickups. |
 | `src/js/drawing.js` | Drawing instructions for the ship, asteroids, stars, and shield. |
 | `src/js/ui.js` | Updates HTML labels and panels, and forwards button clicks. |
-| `src/js/audio.js` | Sound effects and saving/loading the best score. |
+| `src/js/audio.js` | Sound effects. |
+| `src/js/leaderboard.js` | Supabase connection, username registration, score persistence, and player cookies. |
+| `supabase/schema.sql` | Leaderboard table, uniqueness constraint, and row-level security policies. |
 | `src/css/style.css` | Page layout, colors, buttons, and overlays. It does not control game rules. |
 
 ## Phaser and JavaScript ideas used here
